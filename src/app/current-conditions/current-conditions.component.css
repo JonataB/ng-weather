@@ -10,7 +10,7 @@
 .conditions {
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 1.5rem;
   padding: 1rem;
   background-color: #ebe3e3;
