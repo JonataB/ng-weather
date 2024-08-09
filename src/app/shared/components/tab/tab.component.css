@@ -1,0 +1,25 @@
+.tab-container {
+    border: solid 1px rgb(193, 193, 193);
+}
+
+button {
+    color: white;
+    background-color: #2b8de3;
+    position: relative;
+    margin-right: .3rem;
+    border-radius: 4px;
+}
+
+.close {
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+    margin-right: 0px;
+    color: currentColor;
+    opacity: 1;
+}
+
+.active {
+    background-color: white;
+    color:#198aed;
+}

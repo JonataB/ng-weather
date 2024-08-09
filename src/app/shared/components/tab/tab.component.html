@@ -1,0 +1,9 @@
+<button *ngFor="let tab of tabs; let i = index" (click)="selectTab(tab)"
+    [class.active]="currentTab === tab.templateRef">
+    {{ tab.name }}
+    <span *ngIf="closable" class="close" (click)="close.emit(i)">&times;</span>
+</button>
+
+<div class="tab-container">
+    <ng-container *ngTemplateOutlet="currentTab"></ng-container>
+</div>
