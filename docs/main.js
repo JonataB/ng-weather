@@ -239,7 +239,14 @@ let CurrentConditionsComponent = class CurrentConditionsComponent {
     this.weatherService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.inject)(_weather_service__WEBPACK_IMPORTED_MODULE_3__.WeatherService);
     this.locationService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.inject)(_location_service__WEBPACK_IMPORTED_MODULE_2__.LocationService);
     this.currentConditionsByZip = this.weatherService.getCurrentConditions();
+    // effect(() => {
+    //   console.log(
+    //     'currentConditions in current-conditions-cmp',
+    //     this.currentConditionsByZip()
+    //   );
+    // });
   }
+
   showForecast(zipcode) {
     this.router.navigate(['/forecast', zipcode]);
   }
@@ -251,6 +258,7 @@ let CurrentConditionsComponent = class CurrentConditionsComponent {
     this.locationService.removeLocation(zipCode);
     this.weatherService.removeCurrentConditions(zipCode);
   }
+  static #_ = this.ctorParameters = () => [];
 };
 CurrentConditionsComponent = __decorate([(0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
   selector: 'app-current-conditions',
@@ -431,21 +439,19 @@ let TabComponent = class TabComponent {
     this.closable = true;
     this.tabsElements = [];
     this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_3__.EventEmitter();
+    this.cdr = (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.inject)(_angular_core__WEBPACK_IMPORTED_MODULE_3__.ChangeDetectorRef);
   }
-  // private cdr = inject(ChangeDetectorRef);
   ngAfterContentInit() {
-    if (this.tabs.length > 0) {
-      // this.cdr.markForCheck();
-      this.tabsElements = this.tabs.toArray();
-      this.currentTab = this.tabs.first.templateRef;
-    } else {
-      this.subscription = this.tabs.changes.subscribe(() => {
-        // this.cdr.markForCheck();
-        this.tabsElements = this.tabs.toArray();
-        if (!this.tabs.find(tab => tab.templateRef === this.currentTab)) {
-          this.currentTab = this.tabs.first?.templateRef;
-        }
-      });
+    this.updateTabs();
+    this.subscription = this.tabs.changes.subscribe(() => {
+      this.updateTabs();
+    });
+  }
+  updateTabs() {
+    this.cdr.markForCheck();
+    this.tabsElements = this.tabs.toArray();
+    if (!this.currentTab || !this.tabs.find(tab => tab.templateRef === this.currentTab)) {
+      this.currentTab = this.tabs.first?.templateRef;
     }
   }
   selectTab(tab) {
@@ -454,13 +460,16 @@ let TabComponent = class TabComponent {
   onClose(i) {
     this.close.emit(i);
     this.tabsElements.splice(i, 1);
-    // this.cdr.markForCheck();
+    this.cdr.markForCheck();
     // setto il contenuto del tab precedente se esiste
     if (i > 0) {
       this.currentTab = this.tabsElements[i - 1].templateRef;
     } else {
       this.currentTab = this.tabsElements[0]?.templateRef;
     }
+  }
+  trackByFn(index, _tab) {
+    return index;
   }
   ngOnDestroy() {
     if (this.subscription) {
@@ -486,6 +495,7 @@ let TabComponent = class TabComponent {
 TabComponent = __decorate([(0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
   selector: 'app-tab',
   template: _tab_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
+  changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_3__.ChangeDetectionStrategy.OnPush,
   styles: [(_tab_component_css_ngResource__WEBPACK_IMPORTED_MODULE_1___default())]
 })], TabComponent);
 
@@ -622,7 +632,7 @@ let WeatherService = class WeatherService {
     }
   }
   getWeatherIcon(id) {
-    if (id >= 200 && id <= 232) return WeatherService_1.ICON_URL + "art_storm.png";else if (id >= 501 && id <= 511) return WeatherService_1.ICON_URL + "art_rain.png";else if (id === 500 || id >= 520 && id <= 531) return WeatherService_1.ICON_URL + "art_light_rain.png";else if (id >= 600 && id <= 622) return WeatherService_1.ICON_URL + "art_snow.png";else if (id >= 801 && id <= 804) return WeatherService_1.ICON_URL + "art_clouds.png";else if (id === 741 || id === 761) return WeatherService_1.ICON_URL + "art_fog.png";else return WeatherService_1.ICON_URL + "art_clear.png";
+    if (id >= 200 && id <= 232) return WeatherService_1.ICON_URL + 'art_storm.png';else if (id >= 501 && id <= 511) return WeatherService_1.ICON_URL + 'art_rain.png';else if (id === 500 || id >= 520 && id <= 531) return WeatherService_1.ICON_URL + 'art_light_rain.png';else if (id >= 600 && id <= 622) return WeatherService_1.ICON_URL + 'art_snow.png';else if (id >= 801 && id <= 804) return WeatherService_1.ICON_URL + 'art_clouds.png';else if (id === 741 || id === 761) return WeatherService_1.ICON_URL + 'art_fog.png';else return WeatherService_1.ICON_URL + 'art_clear.png';
   }
   static #_5 = this.ctorParameters = () => [];
 };
@@ -794,7 +804,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.icon {
   right: 20px;
   top: -2px;
 }
-`, "",{"version":3,"sources":["webpack://./src/app/forecasts-list/forecasts-list.component.css"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,WAAW;EACX,SAAS;AACX","sourcesContent":[".icon {\r\n  width: 45px;\r\n  height: 45px;\r\n  position: absolute;\r\n  right: 20px;\r\n  top: -2px;\r\n}\r\n"],"sourceRoot":""}]);
+
+@media screen and (max-width: 366px) {
+  .icon {
+    width: 30px;
+    height: 30px;
+    right: 0px;
+    top: 5px;
+  }
+}
+`, "",{"version":3,"sources":["webpack://./src/app/forecasts-list/forecasts-list.component.css"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,WAAW;EACX,SAAS;AACX;;AAEA;EACE;IACE,WAAW;IACX,YAAY;IACZ,UAAU;IACV,QAAQ;EACV;AACF","sourcesContent":[".icon {\r\n  width: 45px;\r\n  height: 45px;\r\n  position: absolute;\r\n  right: 20px;\r\n  top: -2px;\r\n}\r\n\r\n@media screen and (max-width: 366px) {\r\n  .icon {\r\n    width: 30px;\r\n    height: 30px;\r\n    right: 0px;\r\n    top: 5px;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___.toString();
 
@@ -813,46 +832,47 @@ var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_mo
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.tab-container {
-    border: solid 1px rgb(193, 193, 193);
-    border-radius: 6px;
+  border: solid 1px rgb(193, 193, 193);
+  border-radius: 6px;
 }
 
 button {
-    height: 3rem;
-    cursor: pointer;
-    color: white;
-    background-color: #2b8de3;
-    position: relative;
-    margin-right: .3rem;
-    border-radius: 4px;
-    border-color: #2b8de3;
-    transition: all 0.3s ease;
+  height: 3rem;
+  cursor: pointer;
+  color: white;
+  background-color: #2b8de3;
+  position: relative;
+  margin-right: 0.3rem;
+  border-radius: 4px;
+  border-color: #2b8de3;
+  transition: all 0.3s ease;
 }
 
 button:hover:not(.active) {
-    background-color: white;
-    color: #198aed;
+  background-color: white;
+  color: #198aed;
 }
 
 .close {
-    width: 16px;
-    height: 16px;
-    margin-left: 6px;
-    margin-right: 0px;
-    color: currentColor;
-    opacity: 1;
+  width: 16px;
+  height: 16px;
+  margin-left: 12px;
+  margin-right: 0px;
+  color: currentColor;
+  opacity: 1;
 }
 
 .active {
-    background-color: white;
-    color: #198aed;
-    transition: all 0.3s ease;
+  background-color: white;
+  color: #198aed;
+  transition: all 0.3s ease;
 }
 
 .active:hover {
-    background-color: #198aed;
-    color: #fff;
-}`, "",{"version":3,"sources":["webpack://./src/app/shared/components/tab/tab.component.css"],"names":[],"mappings":"AAAA;IACI,oCAAoC;IACpC,kBAAkB;AACtB;;AAEA;IACI,YAAY;IACZ,eAAe;IACf,YAAY;IACZ,yBAAyB;IACzB,kBAAkB;IAClB,mBAAmB;IACnB,kBAAkB;IAClB,qBAAqB;IACrB,yBAAyB;AAC7B;;AAEA;IACI,uBAAuB;IACvB,cAAc;AAClB;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,gBAAgB;IAChB,iBAAiB;IACjB,mBAAmB;IACnB,UAAU;AACd;;AAEA;IACI,uBAAuB;IACvB,cAAc;IACd,yBAAyB;AAC7B;;AAEA;IACI,yBAAyB;IACzB,WAAW;AACf","sourcesContent":[".tab-container {\r\n    border: solid 1px rgb(193, 193, 193);\r\n    border-radius: 6px;\r\n}\r\n\r\nbutton {\r\n    height: 3rem;\r\n    cursor: pointer;\r\n    color: white;\r\n    background-color: #2b8de3;\r\n    position: relative;\r\n    margin-right: .3rem;\r\n    border-radius: 4px;\r\n    border-color: #2b8de3;\r\n    transition: all 0.3s ease;\r\n}\r\n\r\nbutton:hover:not(.active) {\r\n    background-color: white;\r\n    color: #198aed;\r\n}\r\n\r\n.close {\r\n    width: 16px;\r\n    height: 16px;\r\n    margin-left: 6px;\r\n    margin-right: 0px;\r\n    color: currentColor;\r\n    opacity: 1;\r\n}\r\n\r\n.active {\r\n    background-color: white;\r\n    color: #198aed;\r\n    transition: all 0.3s ease;\r\n}\r\n\r\n.active:hover {\r\n    background-color: #198aed;\r\n    color: #fff;\r\n}"],"sourceRoot":""}]);
+  background-color: #198aed;
+  color: #fff;
+}
+`, "",{"version":3,"sources":["webpack://./src/app/shared/components/tab/tab.component.css"],"names":[],"mappings":"AAAA;EACE,oCAAoC;EACpC,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,eAAe;EACf,YAAY;EACZ,yBAAyB;EACzB,kBAAkB;EAClB,oBAAoB;EACpB,kBAAkB;EAClB,qBAAqB;EACrB,yBAAyB;AAC3B;;AAEA;EACE,uBAAuB;EACvB,cAAc;AAChB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,iBAAiB;EACjB,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,uBAAuB;EACvB,cAAc;EACd,yBAAyB;AAC3B;;AAEA;EACE,yBAAyB;EACzB,WAAW;AACb","sourcesContent":[".tab-container {\r\n  border: solid 1px rgb(193, 193, 193);\r\n  border-radius: 6px;\r\n}\r\n\r\nbutton {\r\n  height: 3rem;\r\n  cursor: pointer;\r\n  color: white;\r\n  background-color: #2b8de3;\r\n  position: relative;\r\n  margin-right: 0.3rem;\r\n  border-radius: 4px;\r\n  border-color: #2b8de3;\r\n  transition: all 0.3s ease;\r\n}\r\n\r\nbutton:hover:not(.active) {\r\n  background-color: white;\r\n  color: #198aed;\r\n}\r\n\r\n.close {\r\n  width: 16px;\r\n  height: 16px;\r\n  margin-left: 12px;\r\n  margin-right: 0px;\r\n  color: currentColor;\r\n  opacity: 1;\r\n}\r\n\r\n.active {\r\n  background-color: white;\r\n  color: #198aed;\r\n  transition: all 0.3s ease;\r\n}\r\n\r\n.active:hover {\r\n  background-color: #198aed;\r\n  color: #fff;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___.toString();
 
@@ -877,7 +897,7 @@ module.exports = "<router-outlet></router-outlet>";
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<app-tab [closable]=\"true\" (close)=\"onClose($event)\">\r\n  <ng-container *ngFor=\"let location of currentConditionsByZip(); trackBy: trackByZipcode\">\r\n    <div *tab=\"location.data.name + ' (' + location.zip + ')'\" (click)=\"showForecast(location.zip)\" class=\"conditions\">\r\n      <div>\r\n        <h3>{{location.data.name}} ({{location.zip}})</h3>\r\n        <h4>Current conditions: {{location.data.weather[0].main}}</h4>\r\n        <h4>Temperatures today:</h4>\r\n        <p>\r\n          Current {{location.data.main.temp | number:'.0-0'}}\r\n          - Max {{location.data.main.temp_max | number:'.0-0'}}\r\n          - Min {{location.data.main.temp_min | number:'.0-0'}}\r\n        </p>\r\n        <p>\r\n          <a [routerLink]=\"['/forecast', location.zip]\">Show 5-day forecast for {{location.data.name}}</a>\r\n        </p>\r\n      </div>\r\n      <div>\r\n        <img [src]=\"weatherService.getWeatherIcon(location.data.weather[0].id)\" alt=\"weather\">\r\n      </div>\r\n    </div>\r\n  </ng-container>\r\n</app-tab>\r\n\r\n";
+module.exports = "<app-tab [closable]=\"true\" (close)=\"onClose($event)\">\r\n  <ng-container\r\n    *ngFor=\"let location of currentConditionsByZip(); trackBy: trackByZipcode\"\r\n  >\r\n    <div\r\n      *tab=\"location.data.name + ' (' + location.zip + ')'\"\r\n      (click)=\"showForecast(location.zip)\"\r\n      class=\"conditions\"\r\n    >\r\n      <div>\r\n        <h3>{{ location.data.name }} ({{ location.zip }})</h3>\r\n        <h4>Current conditions: {{ location.data.weather[0].main }}</h4>\r\n        <h4>Temperatures today:</h4>\r\n        <p>\r\n          Current {{ location.data.main.temp | number : '.0-0' }} - Max\r\n          {{ location.data.main.temp_max | number : '.0-0' }} - Min\r\n          {{ location.data.main.temp_min | number : '.0-0' }}\r\n        </p>\r\n        <p>\r\n          <a [routerLink]=\"['/forecast', location.zip]\"\r\n            >Show 5-day forecast for {{ location.data.name }}</a\r\n          >\r\n        </p>\r\n      </div>\r\n      <div>\r\n        <img\r\n          [src]=\"weatherService.getWeatherIcon(location.data.weather[0].id)\"\r\n          alt=\"weather\"\r\n          class=\"img img-responsive\"\r\n        />\r\n      </div>\r\n    </div>\r\n  </ng-container>\r\n</app-tab>\r\n";
 
 /***/ }),
 
@@ -899,7 +919,7 @@ module.exports = "<div>\r\n  <div class=\"panel panel-default\">\r\n    <div cla
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<div class=\"container-fluid\">\r\n\r\n  <app-zipcode-entry> </app-zipcode-entry>\r\n  <app-current-conditions></app-current-conditions>\r\n\r\n</div>\r\n";
+module.exports = "<div class=\"container-fluid\">\r\n  <app-zipcode-entry> </app-zipcode-entry>\r\n  <app-current-conditions></app-current-conditions>\r\n</div>\r\n";
 
 /***/ }),
 
@@ -910,7 +930,7 @@ module.exports = "<div class=\"container-fluid\">\r\n\r\n  <app-zipcode-entry> <
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<button *ngFor=\"let tab of tabsElements; let i = index\" (click)=\"selectTab(tab)\"\r\n    [class.active]=\"currentTab === tab.templateRef\">\r\n    {{ tab.name }}\r\n    <span *ngIf=\"closable\" class=\"close\" (click)=\"onClose(i)\">&times;</span>\r\n</button>\r\n\r\n<div class=\"tab-container\">\r\n    <ng-container *ngTemplateOutlet=\"currentTab\"></ng-container>\r\n</div>";
+module.exports = "<button\r\n  *ngFor=\"let tab of tabsElements; let i = index; trackBy: trackByFn\"\r\n  (click)=\"selectTab(tab)\"\r\n  [class.active]=\"currentTab === tab.templateRef\"\r\n>\r\n  {{ tab.name }}\r\n  <span\r\n    *ngIf=\"closable\"\r\n    class=\"close\"\r\n    (click)=\"onClose(i); $event.stopPropagation()\"\r\n    >&times;</span\r\n  >\r\n</button>\r\n\r\n<div class=\"tab-container\">\r\n  <ng-container *ngTemplateOutlet=\"currentTab\"></ng-container>\r\n</div>\r\n";
 
 /***/ }),
 
