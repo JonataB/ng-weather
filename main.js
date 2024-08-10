@@ -776,10 +776,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.close {
   justify-content: flex-start;
   margin: 1.5rem;
   padding: 1rem;
-  background-color: #ebe3e3;
-  border-radius: 6px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  align-items: center;
 }
-`, "",{"version":3,"sources":["webpack://./src/app/current-conditions/current-conditions.component.css"],"names":[],"mappings":"AAAA;EACE,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,aAAa;EACb,2BAA2B;EAC3B,cAAc;EACd,aAAa;EACb,yBAAyB;EACzB,kBAAkB;AACpB","sourcesContent":[".close {\r\n  cursor: pointer;\r\n}\r\n\r\n.flex {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.conditions {\r\n  cursor: pointer;\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  margin: 1.5rem;\r\n  padding: 1rem;\r\n  background-color: #ebe3e3;\r\n  border-radius: 6px;\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/app/current-conditions/current-conditions.component.css"],"names":[],"mappings":"AAAA;EACE,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,aAAa;EACb,2BAA2B;EAC3B,cAAc;EACd,aAAa;EACb,yBAAyB;EACzB,yBAAyB;EACzB,kBAAkB;EAClB,mBAAmB;AACrB","sourcesContent":[".close {\r\n  cursor: pointer;\r\n}\r\n\r\n.flex {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.conditions {\r\n  cursor: pointer;\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  margin: 1.5rem;\r\n  padding: 1rem;\r\n  background-color: #f5f5f5;\r\n  border: 1px solid #e3e3e3;\r\n  border-radius: 4px;\r\n  align-items: center;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___.toString();
 
@@ -833,7 +835,7 @@ var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOUR
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.tab-container {
   border: solid 1px rgb(193, 193, 193);
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 button {
@@ -845,6 +847,7 @@ button {
   margin-right: 0.3rem;
   border-radius: 4px;
   border-color: #2b8de3;
+  border-width: 1px;
   transition: all 0.3s ease;
 }
 
@@ -872,7 +875,7 @@ button:hover:not(.active) {
   background-color: #198aed;
   color: #fff;
 }
-`, "",{"version":3,"sources":["webpack://./src/app/shared/components/tab/tab.component.css"],"names":[],"mappings":"AAAA;EACE,oCAAoC;EACpC,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,eAAe;EACf,YAAY;EACZ,yBAAyB;EACzB,kBAAkB;EAClB,oBAAoB;EACpB,kBAAkB;EAClB,qBAAqB;EACrB,yBAAyB;AAC3B;;AAEA;EACE,uBAAuB;EACvB,cAAc;AAChB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,iBAAiB;EACjB,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,uBAAuB;EACvB,cAAc;EACd,yBAAyB;AAC3B;;AAEA;EACE,yBAAyB;EACzB,WAAW;AACb","sourcesContent":[".tab-container {\r\n  border: solid 1px rgb(193, 193, 193);\r\n  border-radius: 6px;\r\n}\r\n\r\nbutton {\r\n  height: 3rem;\r\n  cursor: pointer;\r\n  color: white;\r\n  background-color: #2b8de3;\r\n  position: relative;\r\n  margin-right: 0.3rem;\r\n  border-radius: 4px;\r\n  border-color: #2b8de3;\r\n  transition: all 0.3s ease;\r\n}\r\n\r\nbutton:hover:not(.active) {\r\n  background-color: white;\r\n  color: #198aed;\r\n}\r\n\r\n.close {\r\n  width: 16px;\r\n  height: 16px;\r\n  margin-left: 12px;\r\n  margin-right: 0px;\r\n  color: currentColor;\r\n  opacity: 1;\r\n}\r\n\r\n.active {\r\n  background-color: white;\r\n  color: #198aed;\r\n  transition: all 0.3s ease;\r\n}\r\n\r\n.active:hover {\r\n  background-color: #198aed;\r\n  color: #fff;\r\n}\r\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/app/shared/components/tab/tab.component.css"],"names":[],"mappings":"AAAA;EACE,oCAAoC;EACpC,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,eAAe;EACf,YAAY;EACZ,yBAAyB;EACzB,kBAAkB;EAClB,oBAAoB;EACpB,kBAAkB;EAClB,qBAAqB;EACrB,iBAAiB;EACjB,yBAAyB;AAC3B;;AAEA;EACE,uBAAuB;EACvB,cAAc;AAChB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,iBAAiB;EACjB,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,uBAAuB;EACvB,cAAc;EACd,yBAAyB;AAC3B;;AAEA;EACE,yBAAyB;EACzB,WAAW;AACb","sourcesContent":[".tab-container {\r\n  border: solid 1px rgb(193, 193, 193);\r\n  border-radius: 4px;\r\n}\r\n\r\nbutton {\r\n  height: 3rem;\r\n  cursor: pointer;\r\n  color: white;\r\n  background-color: #2b8de3;\r\n  position: relative;\r\n  margin-right: 0.3rem;\r\n  border-radius: 4px;\r\n  border-color: #2b8de3;\r\n  border-width: 1px;\r\n  transition: all 0.3s ease;\r\n}\r\n\r\nbutton:hover:not(.active) {\r\n  background-color: white;\r\n  color: #198aed;\r\n}\r\n\r\n.close {\r\n  width: 16px;\r\n  height: 16px;\r\n  margin-left: 12px;\r\n  margin-right: 0px;\r\n  color: currentColor;\r\n  opacity: 1;\r\n}\r\n\r\n.active {\r\n  background-color: white;\r\n  color: #198aed;\r\n  transition: all 0.3s ease;\r\n}\r\n\r\n.active:hover {\r\n  background-color: #198aed;\r\n  color: #fff;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___.toString();
 
@@ -897,7 +900,7 @@ module.exports = "<router-outlet></router-outlet>";
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<app-tab [closable]=\"true\" (close)=\"onClose($event)\">\r\n  <ng-container\r\n    *ngFor=\"let location of currentConditionsByZip(); trackBy: trackByZipcode\"\r\n  >\r\n    <div\r\n      *tab=\"location.data.name + ' (' + location.zip + ')'\"\r\n      (click)=\"showForecast(location.zip)\"\r\n      class=\"conditions\"\r\n    >\r\n      <div>\r\n        <h3>{{ location.data.name }} ({{ location.zip }})</h3>\r\n        <h4>Current conditions: {{ location.data.weather[0].main }}</h4>\r\n        <h4>Temperatures today:</h4>\r\n        <p>\r\n          Current {{ location.data.main.temp | number : '.0-0' }} - Max\r\n          {{ location.data.main.temp_max | number : '.0-0' }} - Min\r\n          {{ location.data.main.temp_min | number : '.0-0' }}\r\n        </p>\r\n        <p>\r\n          <a [routerLink]=\"['/forecast', location.zip]\"\r\n            >Show 5-day forecast for {{ location.data.name }}</a\r\n          >\r\n        </p>\r\n      </div>\r\n      <div>\r\n        <img\r\n          [src]=\"weatherService.getWeatherIcon(location.data.weather[0].id)\"\r\n          alt=\"weather\"\r\n          class=\"img img-responsive\"\r\n        />\r\n      </div>\r\n    </div>\r\n  </ng-container>\r\n</app-tab>\r\n";
+module.exports = "<app-tab [closable]=\"true\" (close)=\"onClose($event)\">\r\n  <ng-container\r\n    *ngFor=\"let location of currentConditionsByZip(); trackBy: trackByZipcode\"\r\n  >\r\n    <div\r\n      *tab=\"location.data.name + ' (' + location.zip + ')'\"\r\n      (click)=\"showForecast(location.zip)\"\r\n      class=\"conditions\"\r\n    >\r\n      <div>\r\n        <h4>Current conditions: {{ location.data.weather[0].main }}</h4>\r\n        <h4>Temperatures today:</h4>\r\n        <p>\r\n          Current {{ location.data.main.temp | number : '.0-0' }} - Max\r\n          {{ location.data.main.temp_max | number : '.0-0' }} - Min\r\n          {{ location.data.main.temp_min | number : '.0-0' }}\r\n        </p>\r\n        <p>\r\n          <a [routerLink]=\"['/forecast', location.zip]\"\r\n            >Show 5-day forecast for {{ location.data.name }}</a\r\n          >\r\n        </p>\r\n      </div>\r\n      <div>\r\n        <img\r\n          [src]=\"weatherService.getWeatherIcon(location.data.weather[0].id)\"\r\n          alt=\"weather\"\r\n          class=\"img img-responsive\"\r\n        />\r\n      </div>\r\n    </div>\r\n  </ng-container>\r\n</app-tab>\r\n";
 
 /***/ }),
 
