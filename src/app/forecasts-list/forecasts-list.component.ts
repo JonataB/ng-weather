@@ -1,22 +1,25 @@
-import { Component, Signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { Component, inject, Input, Signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { WeatherService } from '../weather.service';
 import { Forecast } from './forecast.type';
 
 @Component({
   selector: 'app-forecasts-list',
+  standalone: true,
+  imports: [RouterLink, DatePipe, DecimalPipe],
   templateUrl: './forecasts-list.component.html',
-  styleUrls: ['./forecasts-list.component.css']
+  styleUrls: ['./forecasts-list.component.css'],
 })
-export class ForecastsListComponent {
+export default class ForecastsListComponent {
+  weatherService = inject(WeatherService);
 
-  zipcode: string;
-  protected forecastByZip: Signal<Forecast> = this.weatherService.getForecastByZip();
-  
-  constructor(protected weatherService: WeatherService, route: ActivatedRoute) {
-    route.params.subscribe(params => {
-      this.zipcode = params['zipcode'];
-      this.weatherService.getForecast(this.zipcode);
-    });
+  @Input() set zipcode(value: string) {
+    if (value) {
+      this.weatherService.getForecast(value);
+    }
   }
+
+  protected forecastByZip: Signal<Forecast> =
+    this.weatherService.getForecastByZip();
 }

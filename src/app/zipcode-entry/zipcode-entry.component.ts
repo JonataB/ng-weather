@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { LocationService } from "../location.service";
+import { LocationService } from '../location.service';
 
 @Component({
   selector: 'app-zipcode-entry',
-  templateUrl: './zipcode-entry.component.html'
+  standalone: true,
+  templateUrl: './zipcode-entry.component.html',
 })
 export class ZipcodeEntryComponent {
-
-  constructor(private service: LocationService) { }
+  constructor(private service: LocationService) {}
 
   addLocation(zipcode: string) {
     if (zipcode) {
@@ -16,5 +16,4 @@ export class ZipcodeEntryComponent {
       alert('Please enter value');
     }
   }
-
 }

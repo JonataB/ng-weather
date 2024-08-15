@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export const LOCATIONS: string = "locations";
+export const LOCATIONS: string = 'locations';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LocationService {
-
   private locations = new BehaviorSubject<string[]>([]);
   locations$ = this.locations.asObservable();
 
@@ -24,11 +23,13 @@ export class LocationService {
     if (zipcode && !this.locationsValues.includes(zipcode)) {
       this.locations.next([...this.locationsValues, zipcode]);
       localStorage.setItem(LOCATIONS, JSON.stringify(this.locations.value));
+    } else {
+      alert('zipcode already exists');
     }
   }
 
   removeLocation(zipcode: string) {
-    const locations = this.locationsValues.filter(loc => loc !== zipcode);
+    const locations = this.locationsValues.filter((loc) => loc !== zipcode);
     this.locations.next([...locations]);
     localStorage.setItem(LOCATIONS, JSON.stringify(locations));
   }

@@ -1,11 +1,16 @@
 import { Component, inject, Signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ConditionsAndZip } from '../conditions-and-zip.type';
 import { LocationService } from '../location.service';
 import { WeatherService } from '../weather.service';
+import { TabComponent } from 'app/shared/components/tab/tab.component';
+import { TabDirective } from 'app/shared/components/tab/tab.directive';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-current-conditions',
+  standalone: true,
+  imports: [TabComponent, TabDirective, DecimalPipe, RouterLink],
   templateUrl: './current-conditions.component.html',
   styleUrls: ['./current-conditions.component.css'],
 })
@@ -16,21 +21,12 @@ export class CurrentConditionsComponent {
   protected currentConditionsByZip: Signal<ConditionsAndZip[]> =
     this.weatherService.getCurrentConditions();
 
-  constructor() {
-    // effect(() => {
-    //   console.log(
-    //     'currentConditions in current-conditions-cmp',
-    //     this.currentConditionsByZip()
-    //   );
-    // });
-  }
+  sortByZipCodeFn = (a: TabDirective, b: TabDirective) => {
+    return a.name.localeCompare(b.name);
+  };
 
   showForecast(zipcode: string): void {
     this.router.navigate(['/forecast', zipcode]);
-  }
-
-  trackByZipcode(_index: number, location: ConditionsAndZip): string {
-    return location.zip;
   }
 
   onClose(index: number): void {

@@ -7,7 +7,9 @@ import { CurrentConditions } from './current-conditions/current-conditions.type'
 import { Forecast } from './forecasts-list/forecast.type';
 import { LocationService } from './location.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class WeatherService {
   static readonly URL = 'https://api.openweathermap.org/data/2.5';
   static readonly APPID = '5a4b2d457ecbef9eb2a71e480b947604';
